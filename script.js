@@ -19,6 +19,8 @@ row10 = [];
 row11 = [];
 row12 = [];
 
+
+
 creeperRows = [row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12];
 // console.log(creeperRows);
 // var bodyEl = document.querySelector("body");
@@ -45,66 +47,72 @@ for (var i = 0; i < 12; i++){
     rowCreation.setAttribute("class", "row");
     divContainer.appendChild(rowCreation);
     
-    // creating columns for each row,  detect black squares with creeperRows Array data
+    // creating COL for each row,  detect black squares with creeperRows Array data
 
-    // ** Create 12 COL for each ROW  (but some need to be styled black)
-    for(var j = 0; j < creeperRows.length; j++){
+    // ** Check check for all green rows in array and create them
+    if(creeperRows[i].length===0){
+        for(var j = 0; j < creeperRows.length; j++){
+            var colCreation = document.createElement("div");
+            rowCreation.appendChild(colCreation);
+            colCreation.style.height = "80px";
+            colCreation.style.width = "80px";
+            colCreation.style.backgroundColor = 'green';
+        }     
+    }
+    else {
+        // console.log(creeperRows[i]);
+
+        // ***column counter for rows with black
+        for(var k = 0; k < 12; k++){
+            
+            // create bool set to false
+            var arrayBlackPosition = false;
+
+            // loop check to see if col value is in current arrays array 4x
+            for (var ki =0; ki <creeperRows[i].length; ki++){
 
 
-        // if the array index has no data
-        // create, append, style all 12 col green for this row
+                // if there was a match set bool to true
+                if (creeperRows[i][ki]===k+1){
 
-        // **Identify ROWs w/o black style, and style row green
-        // if(true){
-        // if (creeperRows[i].length === 0){
+                    arrayBlackPosition=true;  
 
-        //     for (var gi =0; gi < 12; gi++){
+                    // console.log("index i: " + i + "  index k: " + k + "  index ki" + ki + " arrayBlackPosition: " + arrayBlackPosition);             
+                };
+               
+                // console.log(arrayBlackPosition);
+            };
+
+            // console.log("index i: " + i + "  index k: " + k + "  index ki" + ki + " arrayBlackPosition: " + arrayBlackPosition);
+
+            if(arrayBlackPosition===true){
+
+                var colCreation = document.createElement("div");
+                rowCreation.appendChild(colCreation);
+                colCreation.style.height = "80px";
+                colCreation.style.width = "80px";
+                colCreation.style.backgroundColor = 'black';
+                // colCreation.style.border = "2px solid black";    
+            }
+            else{
+                // style green
                 var colCreation = document.createElement("div");
                 rowCreation.appendChild(colCreation);
                 colCreation.style.height = "80px";
                 colCreation.style.width = "80px";
                 colCreation.style.backgroundColor = 'green';
-                colCreation.style.border = "2px solid black";
-                
-                
-        //     };
-        // }   
-        // else{
 
-        //     //** Campare array conents to loop variable
-        //     for(var ki =0; ki < creeperRows[i].length; ki++){
+            };
 
-        //         for(var k = 0; k < 12; k++){
-                
+            console.log("index i: " + i + "  index k: " + k + "  index ki" + ki + " arrayBlackPosition: " + arrayBlackPosition);
+            
+            
 
-        //             // if arrary element i, index value ki
-        //             // equals loop index value k
-        //             // paint black
-        //             if(creeperRows[i][ki] = k){
-
-        //                 // if any of the array values match the index
-        //                 // create, append, style all 12 col black for this row
-
-        //                 var colCreation = document.createElement("div");
-        //                 rowCreation.appendChild(colCreation);
-        //                 colCreation.style.height = "80px";
-        //                 colCreation.style.width = "80px";
-        //                 colCreation.style.backgroundColor = 'black';
-        //             }
-        //             else{
-        //                 // style green
-        //                 var colCreation = document.createElement("div");
-        //                 rowCreation.appendChild(colCreation);
-        //                 colCreation.style.height = "80px";
-        //                 colCreation.style.width = "80px";
-        //                 colCreation.style.backgroundColor = 'green';
-        //             };
-        //         };
-        //     };
-       
-        // };
+        };
 
     };
+
+    
 
 };
 
