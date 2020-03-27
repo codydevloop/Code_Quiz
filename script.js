@@ -149,6 +149,17 @@ var birds = ["Do you like dogs?", "yes", "no", "maybe", "yes"];
 
 var allQandA = [dog, cat, birds];
 
+// ***Element Variables
+var userQuestion = document.querySelector("#question");
+var answer1El = document.querySelector("#answer1");
+var answer2El = document.querySelector("#answer2");
+var answer3El = document.querySelector("#answer3");
+var topScoreEl = document.querySelector("#topscore");
+var userScoreEl = document.querySelector("#score");
+
+var correctAnswer;
+
+
 
 
 // GIVEN I am taking a code quiz
@@ -161,13 +172,14 @@ var timeForQuiz = 5;
 
 
 
-// add event listener
+// add event listener for button
 startButtonEl.addEventListener("click", function(){
     // start timer
     //code working at this point
     // console.log(startButtonEl);
 
     showTime();
+    getUserQandA(0);
 
     function showTime() {
         var timeInterval = setInterval(function() {
@@ -177,7 +189,7 @@ startButtonEl.addEventListener("click", function(){
             timeForQuiz--;
             // console.log("why oh why");
             // console.log(timeForQuiz);
-            
+
             if(timeForQuiz===0){
             timerEl.textContent ="blah ";
             clearInterval(timeInterval);  
@@ -186,6 +198,40 @@ startButtonEl.addEventListener("click", function(){
         },1000)
     
     };
+
+   
+function getUserQandA(index){
+    userQuestion.innerHTML = allQandA[index][0];
+    answer1El.innerHTML = allQandA[index][1];
+    answer2El.innerHTML = allQandA[index][2];
+    answer3El.innerHTML = allQandA[index][3];
+    correctAnswer = allQandA[index][4];
+    // console.log(userQuestion);
+};  
+//add event listener for clicked answers
+var listenForAnswers = documnt.querySelectorAll(".answers");
+
+listenForAnswers.addEventListener("click",function(){
+    // check corrct answer
+
+    // give next question
+
+
+});
+
+function getNextQuestion (buttonIndex){
+    userQuestion.innerHTML = allQandA[index][0];
+    answer1El.innerHTML = allQandA[index][1];
+    answer2El.innerHTML = allQandA[index][2];
+    answer3El.innerHTML = allQandA[index][3];
+    correctAnswer = allQandA[index][4];
+    // console.log(userQuestion);    
+};
+
+
+ 
+    
+
 // THEN a timer starts (done) and I am presented with a question
 // // create, show timer, show question, and multi-choice ansers
 
