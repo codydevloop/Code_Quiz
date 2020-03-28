@@ -136,28 +136,55 @@ for (var i = 0; i < 12; i++){
 
 };
 
+
+
 //********************************** */
+
 // ****GAME & TIMER DESIGN
+
 // **********************************
+
+const allQandA = [
+    {
+    q: "Do you like dogs?",
+    a: ["yes", "no", "maybe"],
+    correct:"answer1"
+    },
+
+    {
+    q:"Do you like cats?", 
+    a: ["yes", "no", "maybe"],
+    correct:"answer1"
+    },
+
+    {
+    q:"Do you like fish?", 
+    a: ["yes", "no", "maybe"],
+    correct:"answer1"
+    }
+]
+
+var stupidIndex = 0;
+// console.log(allQandA[indexTracking].q);
 
 
 
 //create array or object with all questions, answers, and correct answer
-var dog = ["Do you like dogs?","yes", "no", "maybe", "yes"];
-var cat = ["Do you like dogs?", "yes", "no", "maybe", "yes"];
-var birds = ["Do you like dogs?", "yes", "no", "maybe", "yes"];
-
-var allQandA = [dog, cat, birds];
+// var dog = ["Do you like dogs?","yes", "no", "maybe", "yes"];
+// var cat = ["Do you like dogs?", "yes", "no", "maybe", "yes"];
+// var birds = ["Do you like dogs?", "yes", "no", "maybe", "yes"];
+// var allQandA = [dog, cat, birds];
 
 // ***Element Variables
 var userQuestion = document.querySelector("#question");
 var answer1El = document.querySelector("#answer1");
 var answer2El = document.querySelector("#answer2");
 var answer3El = document.querySelector("#answer3");
+var buttonEl = document.querySelector("button");
 var topScoreEl = document.querySelector("#topscore");
 var userScoreEl = document.querySelector("#score");
 
-var correctAnswer;
+
 
 
 
@@ -168,87 +195,87 @@ var correctAnswer;
 
 //create start button variable
 var startButtonEl = document.querySelector("#start");
-var timeForQuiz = 5;
+var timeForQuiz = 10;
 
 
-
-// add event listener for button
+// eventListener Button
 startButtonEl.addEventListener("click", function(){
     // start timer
     //code working at this point
     // console.log(startButtonEl);
-
     showTime();
-    getUserQandA(0);
-
-    function showTime() {
-        var timeInterval = setInterval(function() {
-        
-            var timerEl = document.querySelector("#timer");
-            timerEl.textContent = "Time Remaining: " + timeForQuiz;
-            timeForQuiz--;
-            // console.log("why oh why");
-            // console.log(timeForQuiz);
-
-            if(timeForQuiz===0){
-            timerEl.textContent ="blah ";
-            clearInterval(timeInterval);  
-            };
-      
-        },1000)
-    
-    };
-
-   
-function getUserQandA(index){
-    userQuestion.innerHTML = allQandA[index][0];
-    answer1El.innerHTML = allQandA[index][1];
-    answer2El.innerHTML = allQandA[index][2];
-    answer3El.innerHTML = allQandA[index][3];
-    correctAnswer = allQandA[index][4];
-    // console.log(userQuestion);
-};  
-//add event listener for clicked answers
-var listenForAnswers = documnt.querySelectorAll(".answers");
-
-listenForAnswers.addEventListener("click",function(){
-    // check corrct answer
-
-    // give next question
-
-
+    getUserQandA();
 });
 
-function getNextQuestion (buttonIndex){
-    userQuestion.innerHTML = allQandA[index][0];
-    answer1El.innerHTML = allQandA[index][1];
-    answer2El.innerHTML = allQandA[index][2];
-    answer3El.innerHTML = allQandA[index][3];
-    correctAnswer = allQandA[index][4];
-    // console.log(userQuestion);    
+//timer
+
+function showTime() {
+     
+    var timeInterval = setInterval(function() {
+        var timerEl = document.querySelector("#timer");
+        timerEl.textContent = "Time Remaining: " + timeForQuiz;
+        timeForQuiz--;
+        // console.log("why oh why");
+        // console.log(timeForQuiz);
+        if(timeForQuiz===0){
+        timerEl.textContent ="blah ";
+        clearInterval(timeInterval); 
+        };
+    },1000)
+};
+
+// load questions and answers
+
+function randomQuestion(){
+    var randomNumber=Math.floor(Math.random()*allQandA.length);
+    stupidIndex=randomNumber;
+};
+
+function check(element){
+    console.log(element.id)
+    console.log(allQandA[stupidIndex].correct);
+    if (element.id === allQandA[stupidIndex].correct){
+        alert("Correct");
+    }
+    else {
+        alert("Incorrect");
+        // __subtract time
+    };
 };
 
 
- 
+function getUserQandA(){
+    randomQuestion();
+    // console.log(stupidIndex);
+    // console.log(allQandA[stupidIndex].q);
+    userQuestion.innerHTML = allQandA[stupidIndex].q;
+    answer1El.innerHTML = allQandA[stupidIndex].a[0];
+    answer2El.innerHTML = allQandA[stupidIndex].a[1];
+    answer3El.innerHTML = allQandA[stupidIndex].a[2];
+    // userQuestion.innerHTML = allQandA[tupidIndex].correct;
+    // // index++;
+    // console.log(userQuestion);
+};
+   
+             
+//add event listener for clicked answers
+// answer1El.addEventListener("click",function(){
+//     indexCounter();    
+// });
+
+// answer1E2.addEventListener("click",function(){
+//     getUserQandA();
+// });
+
+// answer1E3.addEventListener("click",function(){
+//     getUserQandA();
+// });
+
+
     
 
 // THEN a timer starts (done) and I am presented with a question
 // // create, show timer, show question, and multi-choice ansers
-
-
-});
-
-
-
-
-
-
-
-// 
-
-
-
-
 
 // WHEN I answer a question
 // THEN I am presented with another question
