@@ -8,45 +8,90 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="style.css">
     <title>Code Quiz</title>
   </head>
   <body>
    
-
+    <h1>MINECRAFT TRIVIA <span id ="timer"></span></h1>
     
 
     <!-- Javascript code inserts another col-9 @ #insert-creeper  -->
 
-    <section class="container-fluid">
+    <section class="container quiz mx-auto">
      
       <div class="row" id ="insert-creeper">
-        <div class = "col-6 qandacol">
-          <h1>Welcome to the Quiz</h1>
-          <h3 id ="question">on blah</h3>
+        <div class = "col-6 qandacol listofanswers">          
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title" id="question">Q</h5>
+            </div>
+          </div>
 
+          <br><br><br>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title answers" onclick="check(this)" id ="answer1">a1</h5>
+            </div>
+          </div>
           
+          <br>
 
-          <ul class="list-group">
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-                    
-            <li class="list-group-item list-group-item-primary">N/A</li>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title answers" onclick="check(this)" id ="answer2">a2</h5>
+            </div>
+          </div>    
+
+          <br>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title answers" onclick="check(this)" id ="answer3">a3</h5>
+            </div>
+          </div>
+          
+          <br><br><br><br>
+
+          <div class="row">
+            <div class="col-6">
+              <div class="card bg-dark text-white">
+                <div class="card-body">
+                  <h4 class="card-title text-center" id= "start">Start</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <div class="card text-white bg-dark">
+                <div class="card-body">
+                  <h4 class="card-title text-center" id= "next">Next</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+            
+
+          <!-- <ul class="list-group">
+                
+            <li class="list-group-item list-group-item-primary" id="question">Question</li>
+            <li class="list-group-item"></li>
             <li class="list-group-item list-group-item-secondary answers" onclick="check(this)" id ="answer1">Answer1</li>
             <li class="list-group-item list-group-item-success answers" onclick="check(this)" id ="answer2">Answer2</li>
             <li class="list-group-item list-group-item-danger answers" onclick="check(this)" id = "answer3">Answer3</li>
-            
             <li class="list-group-item list-group-item-info" id="topscore">Top Score</li>
             <li class="list-group-item list-group-item-light" id ="score">Score</li>
             <li class="list-group-item list-group-item-dark" id ="button">Button</li>
-            <li class="list-group-item list-group-item-dark" id ="timer">Timer</li>
+            <li class="list-group-item list-group-item-dark" >N/Z</li>
             <li class="list-group-item list-group-item-warning" id= "start">Start</li>
 
-          </ul>
-          <!-- <button id = "started">Get Ready</button> -->
+          </ul> -->
+
+
+          <!-- <button id = "started">Get Ready</button>
 
 
 

@@ -1,0 +1,21 @@
+.quiz{
+    background-color: blue;
+    border: 2px solid black;
+    padding-left: 60px;
+    padding-top: 60px;
+    padding-bottom: 40px;
+    
+}
+
+h1{
+    text-align: center;
+}
+
+#timer{
+    color:red;
+};
+
+/* .correct{
+    background-color: greenyellow;
+   
+}; */

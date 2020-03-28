@@ -168,13 +168,6 @@ var stupidIndex = 0;
 // console.log(allQandA[indexTracking].q);
 
 
-
-//create array or object with all questions, answers, and correct answer
-// var dog = ["Do you like dogs?","yes", "no", "maybe", "yes"];
-// var cat = ["Do you like dogs?", "yes", "no", "maybe", "yes"];
-// var birds = ["Do you like dogs?", "yes", "no", "maybe", "yes"];
-// var allQandA = [dog, cat, birds];
-
 // ***Element Variables
 var userQuestion = document.querySelector("#question");
 var answer1El = document.querySelector("#answer1");
@@ -183,10 +176,7 @@ var answer3El = document.querySelector("#answer3");
 var buttonEl = document.querySelector("button");
 var topScoreEl = document.querySelector("#topscore");
 var userScoreEl = document.querySelector("#score");
-
-
-
-
+var stateOfStartButton = true;
 
 
 // GIVEN I am taking a code quiz
@@ -195,17 +185,31 @@ var userScoreEl = document.querySelector("#score");
 
 //create start button variable
 var startButtonEl = document.querySelector("#start");
-var timeForQuiz = 10;
+var timeForQuiz = 45;
 
 
 // eventListener Button
+
 startButtonEl.addEventListener("click", function(){
+    if (stateOfStartButton === true){
     // start timer
     //code working at this point
     // console.log(startButtonEl);
     showTime();
     getUserQandA();
+    startButtonEl.innerHTML = 'Reset';
+    // startButtonEl.id = "reset";
+    stateOfStartButton = false;
+    }
+    else{
+        location.reload(true);
+        return false;
+    };
+
+
 });
+
+
 
 //timer
 
@@ -213,12 +217,11 @@ function showTime() {
      
     var timeInterval = setInterval(function() {
         var timerEl = document.querySelector("#timer");
-        timerEl.textContent = "Time Remaining: " + timeForQuiz;
+        timerEl.textContent = "  -  Time Remaining: "+ timeForQuiz;
         timeForQuiz--;
         // console.log("why oh why");
         // console.log(timeForQuiz);
         if(timeForQuiz===0){
-        timerEl.textContent ="blah ";
         clearInterval(timeInterval); 
         };
     },1000)
@@ -231,15 +234,26 @@ function randomQuestion(){
     stupidIndex=randomNumber;
 };
 
+// check answers
+
 function check(element){
-    console.log(element.id)
-    console.log(allQandA[stupidIndex].correct);
+    // console.log(element.id)
+    // console.log(allQandA[stupidIndex].correct);
+
     if (element.id === allQandA[stupidIndex].correct){
-        alert("Correct");
+        // alert("Correct");
+        var oneLevelUp = element.parentNode;
+        var twoLevelUp = oneLevelUp.parentNode;
+        twoLevelUp.setAttribute("class", "bg-success");
+        
+        
     }
     else {
-        alert("Incorrect");
+        var oneLevelUp = element.parentNode;
+        var twoLevelUp = oneLevelUp.parentNode;
+        twoLevelUp.setAttribute("class", "bg-danger");
         // __subtract time
+        
     };
 };
 
