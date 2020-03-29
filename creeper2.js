@@ -90,3 +90,62 @@ for (var i = 0; i < 12; i++){
         };
     };
 };
+
+function creatScores() {
+    var scoresPut = document.querySelector("#scores")
+
+
+    var createDiv = document.createElement("div");
+    createDiv.setAttribute("class", "row");
+    scoresPut.appendChild(createDiv);
+
+    var createRow = document.createElement("div");
+    createRow.setAttribute("class","col-6");
+    createDiv.appendChild(createRow);
+
+    var cardEl = document.createElement("div");
+    cardEl.setAttribute("class","card bg-dark text-white");
+    createRow.appendChild(cardEl);
+
+    var cardBodyEl = document.createElement("div");
+    cardBodyEl.setAttribute("class", "card-body");
+    cardEl.appendChild(cardBodyEl);
+
+    var cardTitle = document.createElement("div");
+    cardTitle.setAttribute("class", "card-title text-center");
+    cardTitle.textContent = "score goes here";
+    // cardTitle.textContent = quizScore
+    cardBodyEl.appendChild(cardTitle);
+
+  
+    // second col
+
+    var createRow = document.createElement("div");
+    createRow.setAttribute("class","col-6");
+    createDiv.appendChild(createRow);
+
+    var cardEl = document.createElement("div");
+    cardEl.setAttribute("class","card bg-dark text-white");
+    createRow.appendChild(cardEl);
+
+    var cardBodyEl = document.createElement("div");
+    cardBodyEl.setAttribute("class", "card-body");
+    cardEl.appendChild(cardBodyEl);
+
+    var cardTitle = document.createElement("div");
+    cardTitle.setAttribute("class", "card-title text-center");
+    cardTitle.textContent = "score goes here";
+    // cardTitle.textContent = initials
+    cardBodyEl.appendChild(cardTitle);
+
+
+
+    
+
+    
+
+
+
+};
+
+creatScores();
