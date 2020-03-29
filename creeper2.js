@@ -91,6 +91,7 @@ for (var i = 0; i < 12; i++){
     };
 };
 
+//use javaScript to build HTML for Leader Board
 
 var timeFromSession = localStorage.getItem("timeForQuiz")
 function creatScores() {
@@ -119,7 +120,6 @@ function creatScores() {
     // cardTitle.textContent = quizScore
     cardBodyEl.appendChild(cardTitle);
 
-  
     // second col
 
     var createRow = document.createElement("div");

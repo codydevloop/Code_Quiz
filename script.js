@@ -1,43 +1,53 @@
 
 
-
-
-
-
 //********************************** */
 
 // ****GAME & TIMER DESIGN
 
 // **********************************
 
+//Question Bank Array of objects
+
+alert("Welcome to my timed quiz!")
+alert("After you answer each question the timer will stop.  It will resume after you click on Next.");
+alert("Be carefull NOT to hit the Next button at any other time!!");
+
 const allQandA = [
     {
-    q: "Do you like dogs?",
-    a: ["yes", "no", "maybe"],
+    q: "What dimension do the Endermane come from?",
+    a: ["The End", "Narnia", "Kansas"],
     correct:"answer1"
     },
 
     {
-    q:"Do you like cats?", 
-    a: ["yes", "no", "maybe"],
+    q:"How do you make a large chest?", 
+    a: ["Gather some wood.", "Craft them.", "Put two chests together"],
+    correct:"answer3"
+    },
+
+    {
+    q:"What animals are creepers scared of?", 
+    a: ["Cows", "Cats", "Pigs"],
+    correct:"answer2"
+    },
+
+    {
+    q:"How tall is a Ghast?", 
+    a: ["4 blocks", "6 blocks", "3 blocks"],
     correct:"answer1"
     },
 
     {
-    q:"Do you like fish?", 
-    a: ["yes", "no", "maybe"],
-    correct:"answer1"
-    }
-]
+    q:"What are can you build complicated machines with?", 
+    a: ["Gold", "Obsidian", "Redstone"],
+    correct:"answer3"
+    }    
+];
 
-
-// console.log(allQandA[indexTracking].q);
-
-
-// ***Element Variables
+// *** Variables
 
 var stopWatch = true;
-var timeForQuiz = 45;
+var timeForQuiz = 35;
 var timerEl = document.querySelector("#timer");
 var userQuestion = document.querySelector("#question");
 var answer1El = document.querySelector("#answer1");
@@ -50,18 +60,16 @@ var stateOfStartButton = true;
 var startButtonEl = document.querySelector("#start");
 var nextButtonEl = document.querySelector("#next");
 var endOfGame = false;
-
 var randomBank = [];
+
+// Array of numbers to help Randomize questions
+// and make sure none of them repeat
 for( var i=0; i<allQandA.length;i++){
     randomBank.push(i);
 };
-// var timeInterval = setInterval(showTime,1000);
-// clearInterval(timeInterval);
 
-
-// eventListener Button
-
-
+// eventListener Start Element
+// starts timer, gets question
 
 startButtonEl.addEventListener("click", function(){
     if (stateOfStartButton === true){
@@ -72,6 +80,9 @@ startButtonEl.addEventListener("click", function(){
     // startButtonEl.id = "reset";
     stateOfStartButton = false;
     }
+
+    // start buttion turns into reset button once
+    // application is running
     else{
         location.reload(true);
         return false;
@@ -79,7 +90,7 @@ startButtonEl.addEventListener("click", function(){
 });
 
 
-//timer
+//timer - manages the time
 
 function showTime() {
 
@@ -87,58 +98,52 @@ function showTime() {
         if (stopWatch === true){
             timerEl.textContent = "Time Remaining: " + timeForQuiz;
             timeForQuiz--;
-            // console.log("why oh why");
-            // console.log(timeForQuiz);
         }
         else{
             clearInterval(timeInterval);
         }
 
-        if(timeForQuiz===0){
-            timerEl.textContent ="blah ";
+        if(timeForQuiz<=0){
             clearInterval(timeInterval); 
+            gameOver();
         };
     },1000)
 };
 
 
-
-
-
-
-
-
-
-// ***check answers, stop clock until next is selected
-// timer issue not here
+// ***check answers, stops clock until next is selected
 
 function check(element){    
-
+    
     // console.log(element.id)
     // console.log(allQandA[stupidIndex].correct);
     if (element.id === allQandA[stupidIndex].correct){
 
-        //style  correct
-        var oneLevelUp = element.parentNode;
-        var twoLevelUp = oneLevelUp.parentNode;
-        twoLevelUp.setAttribute("class", "bg-success");
+        //***was trying to style with Bootstrap properties
+        //*** this had issues like: delayed styling and 
+        //*** difficults changing back to normal on the next question
+
+        // var oneLevelUp = element.parentNode;
+        // var twoLevelUp = oneLevelUp.parentNode;
+        // twoLevelUp.setAttribute("class", "bg-danger"); 
         
         alert("Correct");  
 
-        // when you select correct, the time interval is paused
+        // after selection, the time interval is paused 
+        // by using clearInterval and then restarting
         stopWatch=false;  
 
         if(endOfGame===true)  {
-            // localStorage.setItem("timeForQuiz", timeForQuiz);
-            location.replace("./creeper.html")
+            gameOver();
         };  
        
     }
     else {
-        //style incorrect
-        var oneLevelUp = element.parentNode;
-        var twoLevelUp = oneLevelUp.parentNode;
-        twoLevelUp.setAttribute("class", "bg-danger"); 
+
+        //***same here for Bootstrap styling, red for incorrect
+        // var oneLevelUp = element.parentNode;
+        // var twoLevelUp = oneLevelUp.parentNode;
+        // // twoLevelUp.setAttribute("class", "bg-danger"); 
 
         // when you select incorrect
         alert("Incorrect: Sorry that is a 10 second penalty");
@@ -149,57 +154,44 @@ function check(element){
 
         // //time interval is paused
         stopWatch=false;        
-        //  timerEl.textContent = "  -  Time Remaining: "+ timeForQuiz; 
+        
+        // check for End Of Game
         if(endOfGame===true)  {
-            // localStorage.setItem("timeForQuiz", timeForQuiz);
-            location.replace("./creeper.html")
+            gameOver();
         };         
 
-    };
-
-        // this is the last place the selected object is us
-        // before next questio is loaded, deleting object from
-        // array so random does not choose it again
-      
+    };      
 };
 
+// this helps with controling the timer
 nextButtonEl.addEventListener("click",function(){
+    
     stopWatch=true;
     getUserQandA();
     showTime(); 
+    
 
 });
+
 // load questions and answers
 
 function getUserQandA(){
 
-    // set background colors to white
-
-    // var oneLevelUpEl1 = answer1El.parentNode;
-    // var twoLevelUpEl1 = oneLevelUpEl1.parentNode;
-    // twoLevelUpEl1.setAttribute("class", "bg-white");
-
-    // answer3El.setAttribute("class", "bg-transparent");
-    // answer3El.setAttribute("class", "bg-transparent");
     randomQuestion();
-    // console.log("stupidIndex inside random question :" + stupidIndex);
     userQuestion.innerHTML = allQandA[stupidIndex].q;
     answer1El.innerHTML = allQandA[stupidIndex].a[0];
     answer2El.innerHTML = allQandA[stupidIndex].a[1];
     answer3El.innerHTML = allQandA[stupidIndex].a[2];
-
 };
 
 //create array values 0-length of questionbank
-
-
 
 function randomQuestion(){
   
     // choose random value from array
     var randomNumber=Math.floor(Math.random()*randomBank.length);
 
-    //remove that number from the array - question bank
+    //remove that number from the question bank array
     stupidIndex=randomBank[randomNumber];
     randomBank.splice([randomNumber],1);
     
@@ -209,6 +201,12 @@ function randomQuestion(){
     };
 };
    
+function gameOver(){
+    location.replace("./creeper.html");
+    localStorage.setItem("timeForQuiz", timeForQuiz);
+};
+
+
              
 //add event listener for clicked answers
 // answer1El.addEventListener("click",function(){
