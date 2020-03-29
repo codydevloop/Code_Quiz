@@ -164,11 +164,15 @@ const allQandA = [
     }
 ]
 
-var stupidIndex = 0;
+
 // console.log(allQandA[indexTracking].q);
 
 
 // ***Element Variables
+
+var stopWatch = true;
+var timeForQuiz = 45;
+var timerEl = document.querySelector("#timer");
 var userQuestion = document.querySelector("#question");
 var answer1El = document.querySelector("#answer1");
 var answer2El = document.querySelector("#answer2");
@@ -177,24 +181,24 @@ var buttonEl = document.querySelector("button");
 var topScoreEl = document.querySelector("#topscore");
 var userScoreEl = document.querySelector("#score");
 var stateOfStartButton = true;
-
-
-// GIVEN I am taking a code quiz
-// WHEN I click the start button
-
-
-//create start button variable
 var startButtonEl = document.querySelector("#start");
-var timeForQuiz = 45;
+var nextButtonEl = document.querySelector("#next");
+
+var randomBank = [];
+for( var i=0; i<allQandA.length;i++){
+    randomBank.push(i);
+};
+// var timeInterval = setInterval(showTime,1000);
+// clearInterval(timeInterval);
 
 
 // eventListener Button
 
+
+
 startButtonEl.addEventListener("click", function(){
     if (stateOfStartButton === true){
     // start timer
-    //code working at this point
-    // console.log(startButtonEl);
     showTime();
     getUserQandA();
     startButtonEl.innerHTML = 'Reset';
@@ -205,70 +209,129 @@ startButtonEl.addEventListener("click", function(){
         location.reload(true);
         return false;
     };
-
-
 });
-
 
 
 //timer
 
 function showTime() {
-     
+
     var timeInterval = setInterval(function() {
-        var timerEl = document.querySelector("#timer");
-        timerEl.textContent = "  -  Time Remaining: "+ timeForQuiz;
-        timeForQuiz--;
-        // console.log("why oh why");
-        // console.log(timeForQuiz);
+        if (stopWatch === true){
+            timerEl.textContent = "Time Remaining: " + timeForQuiz;
+            timeForQuiz--;
+            // console.log("why oh why");
+            // console.log(timeForQuiz);
+        }
+        else{
+            clearInterval(timeInterval);
+        }
+
         if(timeForQuiz===0){
-        clearInterval(timeInterval); 
+            timerEl.textContent ="blah ";
+            clearInterval(timeInterval); 
         };
     },1000)
 };
 
-// load questions and answers
 
-function randomQuestion(){
-    var randomNumber=Math.floor(Math.random()*allQandA.length);
-    stupidIndex=randomNumber;
-};
 
-// check answers
 
-function check(element){
+
+
+
+
+
+// ***check answers, stop clock until next is selected
+// timer issue not here
+
+function check(element){    
+
     // console.log(element.id)
     // console.log(allQandA[stupidIndex].correct);
-
     if (element.id === allQandA[stupidIndex].correct){
-        // alert("Correct");
+
+        //style  correct
         var oneLevelUp = element.parentNode;
         var twoLevelUp = oneLevelUp.parentNode;
         twoLevelUp.setAttribute("class", "bg-success");
         
-        
+        alert("Correct");  
+
+        // when you select correct, the time interval is paused
+        stopWatch=false;             
     }
     else {
+        //style incorrect
         var oneLevelUp = element.parentNode;
         var twoLevelUp = oneLevelUp.parentNode;
-        twoLevelUp.setAttribute("class", "bg-danger");
-        // __subtract time
+        twoLevelUp.setAttribute("class", "bg-danger"); 
+
+        // when you select incorrect
+        alert("Incorrect: Sorry that is a 10 second penalty");
         
+        // // subtract 10 sec penalty to time for quiz
+        timeForQuiz = timeForQuiz-10; 
+        timerEl.textContent = "Time Remaining: " + timeForQuiz;
+
+        // //time interval is paused
+        stopWatch=false;
+        
+        //  timerEl.textContent = "  -  Time Remaining: "+ timeForQuiz;          
     };
+
+        // this is the last place the selected object is us
+        // before next questio is loaded, deleting object from
+        // array so random does not choose it again
+      
 };
 
+nextButtonEl.addEventListener("click",function(){
+    stopWatch=true;
+    getUserQandA();
+    showTime();
+   
+
+});
+// load questions and answers
 
 function getUserQandA(){
+
+    // set background colors to white
+
+    // var oneLevelUpEl1 = answer1El.parentNode;
+    // var twoLevelUpEl1 = oneLevelUpEl1.parentNode;
+    // twoLevelUpEl1.setAttribute("class", "bg-white");
+
+    // answer3El.setAttribute("class", "bg-transparent");
+    // answer3El.setAttribute("class", "bg-transparent");
     randomQuestion();
-    // console.log(stupidIndex);
-    // console.log(allQandA[stupidIndex].q);
     userQuestion.innerHTML = allQandA[stupidIndex].q;
     answer1El.innerHTML = allQandA[stupidIndex].a[0];
     answer2El.innerHTML = allQandA[stupidIndex].a[1];
     answer3El.innerHTML = allQandA[stupidIndex].a[2];
-    // userQuestion.innerHTML = allQandA[tupidIndex].correct;
-    // // index++;
-    // console.log(userQuestion);
+
+};
+
+//create array values 0-length of questionbank
+
+
+
+function randomQuestion(){
+    if(randomBank.length===0){
+        alert("end of game");
+        stopWatch = false;
+    //endof game function   
+    };
+
+    console.log(randomBank);
+    // choose random value from array
+    var randomNumber=Math.floor(Math.random()*randomBank.length);
+    console.log(randomNumber);
+    //remove that number from the array - question bank
+    randomBank.splice([randomNumber],1);
+    stupidIndex=randomNumber;
+    console.log(randomBank);
 };
    
              
