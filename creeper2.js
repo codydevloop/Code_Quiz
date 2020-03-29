@@ -91,6 +91,8 @@ for (var i = 0; i < 12; i++){
     };
 };
 
+
+var timeFromSession = localStorage.getItem("timeForQuiz")
 function creatScores() {
     var scoresPut = document.querySelector("#scores")
 
@@ -113,7 +115,7 @@ function creatScores() {
 
     var cardTitle = document.createElement("div");
     cardTitle.setAttribute("class", "card-title text-center");
-    cardTitle.textContent = "score goes here";
+    cardTitle.textContent = timeFromSession;
     // cardTitle.textContent = quizScore
     cardBodyEl.appendChild(cardTitle);
 
@@ -134,18 +136,11 @@ function creatScores() {
 
     var cardTitle = document.createElement("div");
     cardTitle.setAttribute("class", "card-title text-center");
-    cardTitle.textContent = "score goes here";
+    cardTitle.textContent = ("your initials");
     // cardTitle.textContent = initials
-    cardBodyEl.appendChild(cardTitle);
+    cardBodyEl.appendChild(cardTitle); 
 
-
-
-    
-
-    
-
-
-
+    cardTitle.textContent = prompt("Good job!  Please enter your initials");
 };
 
 creatScores();

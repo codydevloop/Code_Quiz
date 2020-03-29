@@ -49,6 +49,7 @@ var userScoreEl = document.querySelector("#score");
 var stateOfStartButton = true;
 var startButtonEl = document.querySelector("#start");
 var nextButtonEl = document.querySelector("#next");
+var endOfGame = false;
 
 var randomBank = [];
 for( var i=0; i<allQandA.length;i++){
@@ -125,7 +126,13 @@ function check(element){
         alert("Correct");  
 
         // when you select correct, the time interval is paused
-        stopWatch=false;             
+        stopWatch=false;  
+
+        if(endOfGame===true)  {
+            // localStorage.setItem("timeForQuiz", timeForQuiz);
+            location.replace("./creeper.html")
+        };  
+       
     }
     else {
         //style incorrect
@@ -141,9 +148,13 @@ function check(element){
         timerEl.textContent = "Time Remaining: " + timeForQuiz;
 
         // //time interval is paused
-        stopWatch=false;
-        
-        //  timerEl.textContent = "  -  Time Remaining: "+ timeForQuiz;          
+        stopWatch=false;        
+        //  timerEl.textContent = "  -  Time Remaining: "+ timeForQuiz; 
+        if(endOfGame===true)  {
+            // localStorage.setItem("timeForQuiz", timeForQuiz);
+            location.replace("./creeper.html")
+        };         
+
     };
 
         // this is the last place the selected object is us
@@ -155,8 +166,7 @@ function check(element){
 nextButtonEl.addEventListener("click",function(){
     stopWatch=true;
     getUserQandA();
-    showTime();
-   
+    showTime(); 
 
 });
 // load questions and answers
@@ -172,6 +182,7 @@ function getUserQandA(){
     // answer3El.setAttribute("class", "bg-transparent");
     // answer3El.setAttribute("class", "bg-transparent");
     randomQuestion();
+    // console.log("stupidIndex inside random question :" + stupidIndex);
     userQuestion.innerHTML = allQandA[stupidIndex].q;
     answer1El.innerHTML = allQandA[stupidIndex].a[0];
     answer2El.innerHTML = allQandA[stupidIndex].a[1];
@@ -184,20 +195,18 @@ function getUserQandA(){
 
 
 function randomQuestion(){
-    if(randomBank.length===0){
-        alert("end of game");
-        stopWatch = false;
-    //endof game function   
-    };
-
-    console.log(randomBank);
+  
     // choose random value from array
     var randomNumber=Math.floor(Math.random()*randomBank.length);
-    console.log(randomNumber);
+
     //remove that number from the array - question bank
+    stupidIndex=randomBank[randomNumber];
     randomBank.splice([randomNumber],1);
-    stupidIndex=randomNumber;
-    console.log(randomBank);
+    
+    if(randomBank.length===0){
+        // alert("end of game");
+        endOfGame = true;  
+    };
 };
    
              
